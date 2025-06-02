@@ -1,6 +1,12 @@
 import Magician from './Magician.js';
 
 class Grimoire {
+  id;
+  name;
+  schools;
+  spells;
+  owner;
+
   constructor(grimoireObj) {
     this.id = grimoireObj.id || grimoireObj._id || null;
     this.name = grimoireObj.name;

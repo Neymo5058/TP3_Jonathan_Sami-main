@@ -28,7 +28,7 @@ const GrimoireSchema = new mongoose.Schema({
       'Expelliarmus',
       'Felix Felicis',
       'Herbivicus',
-      'he Grim Reveal',
+      'The Grim Reveal',
       'Starflare',
       'Numeris Confundis',
       'Runica Unlocka',

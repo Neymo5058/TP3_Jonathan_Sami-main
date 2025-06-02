@@ -1,6 +1,14 @@
 import mongoose from 'mongoose';
 
 class Magician {
+  id;
+  name;
+  appearance;
+  stats;
+  level;
+  schools;
+  alignment;
+  spellbooks;
   constructor(magicianObj) {
     this.id = magicianObj.id || magicianObj._id || null;
     this.name = magicianObj.name;

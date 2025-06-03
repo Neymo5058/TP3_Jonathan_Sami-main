@@ -46,4 +46,5 @@ const GrimoireSchema = new mongoose.Schema({
 });
 
 const GrimoireModel = mongoose.models.Grimoire || mongoose.model('Grimoire', GrimoireSchema);
+
 export default GrimoireModel;

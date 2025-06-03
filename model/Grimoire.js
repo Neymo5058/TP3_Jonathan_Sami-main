@@ -15,3 +15,5 @@ class Grimoire {
     this.owner = grimoireObj.owner || null;
   }
 }
+
+export default Grimoire;

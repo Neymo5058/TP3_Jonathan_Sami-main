@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import MainRouter from './routes/MainRouter.js';
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ const clientOptions = {
 };
 
 mongoose.connect(uri, clientOptions).then(() => console.log('Connected to DB'));
+app.use('/', MainRouter);
 
 // Middleware
 app.use((err, req, res, next) => {

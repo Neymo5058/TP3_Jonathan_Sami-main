@@ -1,0 +1,18 @@
+{
+  "messages": {
+    "unauthorized": "Accès refusé. Aucun jeton fourni.",
+    "forbidden": "Interdit",
+    "userExists": "L'utilisateur existe déjà",
+    "invalidCredentials": "Identifiants invalides",
+    "serverError": "Erreur du serveur",
+    "registered": "Utilisateur enregistré avec succès"
+  },
+  "schools": {
+    "illusion": "Illusion",
+    "divination": "Divination"
+  },
+  "alignment": {
+    "chaoticGood": "Chaotique Bon",
+    "lawfulEvil": "Loyal Mauvais"
+  }
+}

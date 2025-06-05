@@ -44,3 +44,5 @@ const MagicianSchema = new mongoose.Schema({
 });
 
 const MagicianModel = mongoose.model('Magician', MagicianSchema);
+
+export default MagicianModel;

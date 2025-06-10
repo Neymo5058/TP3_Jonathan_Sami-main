@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-
+import AppError from '../utils/appError.js';
+import MagicianModel from './MagicianModel.js';
 class Magician {
   id;
   name;
@@ -84,8 +85,17 @@ class Magician {
     this.schools.push(newGrimoire);
   }
   // TODO
-  createGrimoire() {
-    // cons
+  static async createGrimoire() {}
+
+  static async createMagician(name, appearance, userId) {
+    if (!userId) {
+      throw new AppError('No ID has been provided', 400);
+    }
+    return await MagicianModel.create({
+      name,
+      appearance,
+      user: userId,
+    });
   }
 }
 

@@ -38,7 +38,6 @@ app.use((err, req, res, next) => {
     });
   }
   // TEST SEARCH
-  console.log('JWT_SECRET =', process.env.JWT_SECRET);
 
   res.status(err.status || 500).json({
     status: 'error',

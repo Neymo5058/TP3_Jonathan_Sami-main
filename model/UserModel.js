@@ -21,7 +21,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Ajoute la méthode correctPassword etc...
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };

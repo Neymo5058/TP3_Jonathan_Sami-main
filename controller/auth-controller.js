@@ -72,15 +72,14 @@ export const authController = {
       }
 
       if (!token) {
-        return next(new AppError('Vous devez être connecté pour accéder.', 401));
+        return next(new AppError('You should be connected to login.', 401));
       }
 
       const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
       const currentUser = await User.findById(decoded.id);
       if (!currentUser) {
-        // TODO PUT ALL THE MESSAGES IN ENGLISH
-        return next(new AppError("L'utilisateur n'existe plus.", 404));
+        return next(new AppError('User does not exsist.', 404));
       }
 
       req.user = currentUser;
@@ -89,7 +88,6 @@ export const authController = {
       next(err);
     }
   },
-
   restrictTo: (...roles) => {
     return (req, res, next) => {
       try {

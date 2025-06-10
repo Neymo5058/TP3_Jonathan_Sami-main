@@ -10,7 +10,7 @@ const getGrimoireOwner = async (req) => {
 };
 
 router.post('/create', authenticate, GrimoireController.create);
-router.post('/add-spell', authenticate, authorizeAdminOrOwner(getGrimoireOwner), GrimoireController.addSpell);
+router.post('/add-spell', authenticate, GrimoireController.addSpell);
 router.get('/', GrimoireController.getAll);
 
 

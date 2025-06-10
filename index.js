@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import i18n from './middleware/i18n.js';
 import logger from './middleware/logger.js';
-import MagicianModel from './model/MagicianModel.js';
+
 import usersRouter from './router/usersRouter.js';
 import magiciansRouter from './router/magiciansRouter.js';
 import spellsRouter from './router/spellsRouter.js';

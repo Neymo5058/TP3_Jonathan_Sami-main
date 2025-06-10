@@ -1,6 +1,7 @@
 {
   "messages": {
     "unauthorized": "Access denied. No token provided.",
+    "invalidToken": "Invalid token.",
     "forbidden": "Forbidden",
     "userExists": "User already exists",
     "invalidCredentials": "Invalid credentials",

@@ -1,4 +1,3 @@
-import Magician from './Magician.js';
 
 class Grimoire {
   id;
@@ -16,4 +15,3 @@ class Grimoire {
   }
 }
  export default Grimoire;
-// This class represents a Grimoire, which is a collection of spells and their associated schools.

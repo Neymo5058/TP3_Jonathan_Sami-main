@@ -15,7 +15,7 @@ const SpellController = {
     const spell = await SortModel.create({ name, level, school, effects });
     logger.info(`Spell created: ${spell.name}`);
     res.status(201).json(spell);
-  }
+  },
 };
 
 export default SpellController;

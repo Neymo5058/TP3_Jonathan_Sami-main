@@ -1,6 +1,7 @@
 {
   "messages": {
     "unauthorized": "Accès refusé. Aucun jeton fourni.",
+    "invalidToken": "Jeton invalide.",
     "forbidden": "Interdit",
     "userExists": "L'utilisateur existe déjà",
     "invalidCredentials": "Identifiants invalides",

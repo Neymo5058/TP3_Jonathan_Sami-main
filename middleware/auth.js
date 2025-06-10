@@ -3,13 +3,20 @@ const SECRET_KEY = 'arcane_secret_key';
 
 export function authenticate(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
+
+  if (!token) {
+    
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
 
   try {
-    req.user = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, SECRET_KEY);
+  
+    req.user = decoded;
     next();
-  } catch {
-    res.status(403).json({ message: 'Invalid token.' });
+  } catch (err) {
+    
+    return res.status(403).json({ message: 'Invalid token.' });
   }
 }
 

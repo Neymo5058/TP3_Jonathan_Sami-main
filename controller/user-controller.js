@@ -16,7 +16,7 @@ const UserController = {
   async login(req, res) {
     const { username, password } = req.body;
     const user = await UserModel.findOne({ username });
-    if (!user || user.password !== password) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user || user.password !== password) return res.status(401).json({ message: req.__('messages.invalidCredentials') });
 
     const token = jwt.sign({ id: user._id, role: user.role }, SECRET_KEY, { expiresIn: '2h' });
     res.status(200).json({ token });

@@ -1,5 +1,3 @@
-import Magician from './Magician.js';
-
 class Grimoire {
   id;
   name;

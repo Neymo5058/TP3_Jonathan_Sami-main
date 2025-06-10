@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-
+import validator from 'validator';
+import Grimoire from './Grimoire.js';
 const GrimoireSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   schools: {

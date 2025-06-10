@@ -1,12 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import MainRouter from './routes/MainRouter.js';
+import dotenv from 'dotenv';
+dotenv.config();
+import morgan from 'morgan';
+import MainRouter from './routes/mainRouter.js';
+import userRouter from './routes/userRouter.js';
 
 const app = express();
 const port = 3000;
 
+// Logger
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
 app.use(express.json());
 
+// Connexion MongoDB
 const uri =
   'mongodb+srv://username123:sami5058@cluster0.dy6dz3y.mongodb.net/TP3_Jonathan_Sami-main?retryWrites=true&w=majority&appName=Cluster0';
 
@@ -15,9 +25,10 @@ const clientOptions = {
 };
 
 mongoose.connect(uri, clientOptions).then(() => console.log('Connected to DB'));
-app.use('/', MainRouter);
 
-// Middleware
+app.use('/', MainRouter);
+app.use('/users', userRouter);
+
 app.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
     const errors = Object.values(err.errors).map((e) => e.message);
@@ -26,6 +37,8 @@ app.use((err, req, res, next) => {
       errors,
     });
   }
+  // TEST SEARCH
+  console.log('JWT_SECRET =', process.env.JWT_SECRET);
 
   res.status(err.status || 500).json({
     status: 'error',

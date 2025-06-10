@@ -23,7 +23,7 @@ const MagicianSchema = new mongoose.Schema({
     strength: { type: Number },
     agility: { type: Number },
     endurance: { type: Number },
-    Spell_Power: { type: Number },
+    spellPower: { type: Number },
   },
   level: {
     type: Number,
@@ -44,5 +44,4 @@ const MagicianSchema = new mongoose.Schema({
 });
 
 const MagicianModel = mongoose.model('Magician', MagicianSchema);
-
 export default MagicianModel;

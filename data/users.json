@@ -1,0 +1,42 @@
+[
+  {
+    "username": "Harry Potter",
+    "password": "Expelliarmus123"
+  },
+  {
+    "username": "Hermione Granger",
+    "password": "Alohomora456"
+  },
+  {
+    "username": "Ron Weasley",
+    "password": "Scabbers789"
+  },
+  {
+    "username": "Draco Malfoy",
+    "password": "Pureblood321"
+  },
+  {
+    "username": "Albus Dumbledore",
+    "password": "FawkesThePhoenix"
+  },
+  {
+    "username": "Severus Snape",
+    "password": "Always987"
+  },
+  {
+    "username": "Sirius Black",
+    "password": "Padfoot001"
+  },
+  {
+    "username": "Bellatrix Lestrange",
+    "password": "AvadaKedavra!"
+  },
+  {
+    "username": "Tom Riddle",
+    "password": "Voldemort666"
+  },
+  {
+    "username": "Minerva McGonagall",
+    "password": "AnimagusCat"
+  }
+]

@@ -2,9 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-import MainRouter from './routes/MainRouter.js';
-import userRouter from './routes/userRouter.js';
-import grimoireRouter from './routes/grimoireRouter.js';
+import MainRouter from './router/MainRouter.js';
+import userRouter from './router/userRouter.js';
+import grimoireRouter from './router/grimoireRouter.js';
 import i18n from './middleware/i18n.js';
 
 const app = express();

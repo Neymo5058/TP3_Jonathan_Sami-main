@@ -1,4 +1,3 @@
-
 class Grimoire {
   id;
   name;
@@ -13,5 +12,20 @@ class Grimoire {
     this.spells = grimoireObj.spells || [];
     this.owner = grimoireObj.owner || null;
   }
+
+  toString() {
+    return `${this.name}`;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      schools: this.schools,
+      spells: this.spells,
+      owner: this.owner,
+    };
+  }
 }
- export default Grimoire;
+
+export default Grimoire;

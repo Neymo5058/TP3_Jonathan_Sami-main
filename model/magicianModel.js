@@ -3,46 +3,28 @@ import mongoose from 'mongoose';
 const MagicianSchema = new mongoose.Schema({
   name: { type: String, required: true },
   appearance: {
-    hair: {
-      style: { type: String, required: true },
-      color: { type: String, required: true },
-    },
-    beard: {
-      style: { type: String, required: true },
-      color: { type: String, required: true },
-    },
-    clothes: {
-      robe: { type: String, required: true },
-      hat: { type: String, required: true },
-    },
-    wand: {
-      wood: { type: String },
-    },
+    hair: { style: String, color: String },
+    beard: { style: String, color: String },
+    clothes: { robe: String, hat: String },
+    wand: { wood: String },
   },
   stats: {
-    strength: { type: Number },
-    agility: { type: Number },
-    endurance: { type: Number },
-    Spell_Power: { type: Number },
+    strength: Number,
+    agility: Number,
+    endurance: Number,
+    Spell_Power: Number,
   },
-  level: {
-    type: Number,
-    default: 1,
-  },
-  schools: {
-    type: [String],
-    default: [],
-  },
-  alignment: {
-    type: String,
-    default: 'Chaotic good',
-  },
-  spellbooks: {
-    type: [String],
-    default: [],
-  },
+  level: { type: Number, default: 1 },
+  schools: [String],
+  alignment: { type: String, default: 'Chaotic good' },
+  spellbooks: [
+    {
+      name: String,
+      spells: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Spell' }],
+    },
+  ],
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // ← Si tu veux savoir qui l'a créé
 });
 
-const MagicianModel = mongoose.model('Magician', MagicianSchema);
-
+const MagicianModel = mongoose.models.Magician || mongoose.model('Magician', MagicianSchema);
 export default MagicianModel;

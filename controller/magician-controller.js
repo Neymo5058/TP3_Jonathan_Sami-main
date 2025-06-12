@@ -4,12 +4,14 @@ import logger from '../middleware/logger.js';
 const MagicianController = {
   async create(req, res) {
     try {
-      const data = { ...req.body, userId: req.user.id };
-      const magician = await MagicianModel.create(data);
-      logger.info(req.__('logs.magicianCreated', { name: magician.name }));
-      res.status(201).json(magician); // or translateMagician(magician, req)
+      const magician = await MagicianModel.create({
+        ...req.body,
+        createdBy: req.user.id
+      });
+      logger.info(`Magician created: ${magician.name}`);
+      res.status(201).json(magician);
     } catch (err) {
-      logger.error(`Create magician error: ${err.message}`);
+      logger.error('Error creating magician: ' + err.message);
       res.status(500).json({ message: req.__('messages.serverError') });
     }
   },

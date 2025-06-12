@@ -1,0 +1,15 @@
+[
+  {
+    "_id": "bd4d9106feb04459727ccad4",
+    "name": "Book of Merlin",
+    "schools": [
+      "Charms",
+      "Herbology"
+    ],
+    "spells": [
+      "2ea0617dc70da6af165ab7ff",
+      "e8325b78596b4e88d545bf30"
+    ],
+    "owner": "d10ff42536098cec6587bb7d"
+  }
+]

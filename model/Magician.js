@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 class Magician {
   id;
   name;
@@ -9,6 +7,7 @@ class Magician {
   schools;
   alignment;
   spellbooks;
+
   constructor(magicianObj) {
     this.id = magicianObj.id || magicianObj._id || null;
     this.name = magicianObj.name;
@@ -42,6 +41,23 @@ class Magician {
     this.schools = magicianObj.schools ?? [];
     this.alignment = magicianObj.alignment ?? 'Chaotic good';
     this.spellbooks = magicianObj.spellbooks ?? [];
+  }
+
+  toString() {
+    return `${this.name}`;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      level: this.level,
+      appearance: this.appearance,
+      stats: this.stats,
+      schools: this.schools,
+      alignment: this.alignment,
+      spellbooks: this.spellbooks,
+    };
   }
 }
 

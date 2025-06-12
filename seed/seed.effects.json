@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Fire Burst",
+    "description": "A burst of flame that burns enemies.",
+    "types": ["damage"],
+    "school": "Charms"
+  },
+  {
+    "name": "Healing Light",
+    "description": "A soft light that heals minor wounds.",
+    "types": ["heal"],
+    "school": "Herbology"
+  },
+  {
+    "name": "Freeze Touch",
+    "description": "Freezes the target briefly.",
+    "types": ["debuff"],
+    "school": "Transfiguration"
+  }
+]

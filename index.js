@@ -2,17 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-import morgan from 'morgan';
-import MainRouter from './routes/mainRouter.js';
+import MainRouter from './routes/MainRouter.js';
 import userRouter from './routes/userRouter.js';
+import grimoireRouter from './routes/grimoireRouter.js';
+import i18n from './middleware/i18n.js';
 
 const app = express();
 const port = 3000;
-
-// Logger
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
 
 app.use(express.json());
 
@@ -23,25 +19,25 @@ const uri =
 const clientOptions = {
   serverApi: { version: '1', strict: true, deprecationErrors: true },
 };
-
 mongoose.connect(uri, clientOptions).then(() => console.log('Connected to DB'));
 
-app.use('/', MainRouter);
+// Routes
+app.use('/api', MainRouter);
 app.use('/users', userRouter);
+app.use('/grimoires', grimoireRouter);
+app.use(i18n.init);
 
+// MIDDLEWARE
+// MIDDLEWARE
 app.use((err, req, res, next) => {
-  if (err.name === 'ValidationError') {
-    const errors = Object.values(err.errors).map((e) => e.message);
-    return res.status(400).json({
-      status: 'fail',
-      errors,
-    });
-  }
-  // TEST SEARCH
+  console.error('Error caught:', err);
 
-  res.status(err.status || 500).json({
-    status: 'error',
-    message: err.message || 'Erreur interne du serveur',
+  const statusCode = err.statusCode || 500;
+  const status = err.status || 'error';
+
+  res.status(statusCode).json({
+    status,
+    message: err.message,
   });
 });
 

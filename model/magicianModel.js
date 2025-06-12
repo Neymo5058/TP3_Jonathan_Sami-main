@@ -1,19 +1,28 @@
 import mongoose from 'mongoose';
+const SpellbookSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  level: { type: Number, default: 1 },
+  spells: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Spell',
+    default: [],
+  },
+});
 
 const MagicianSchema = new mongoose.Schema({
   name: { type: String, required: true },
   appearance: {
     hair: {
-      style: { type: String, required: true },
-      color: { type: String, required: true },
+      style: { type: String },
+      color: { type: String },
     },
     beard: {
-      style: { type: String, required: true },
-      color: { type: String, required: true },
+      style: { type: String },
+      color: { type: String },
     },
     clothes: {
-      robe: { type: String, required: true },
-      hat: { type: String, required: true },
+      robe: { type: String },
+      hat: { type: String },
     },
     wand: {
       wood: { type: String },
@@ -34,11 +43,11 @@ const MagicianSchema = new mongoose.Schema({
     default: [],
   },
   alignment: {
-    type: String,
-    default: 'Chaotic good',
+    type: [String],
+    default: ['chaotic good'],
   },
   spellbooks: {
-    type: [String],
+    type: [SpellbookSchema],
     default: [],
   },
 });

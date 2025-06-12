@@ -1,13 +1,12 @@
 import crypto from 'crypto';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
-import User from '../model/UserModel.js';
-import AppError from '../utils/appError.js';
-// TODO CHANGE THE NAME OF THE MESSAGE
+import UserModel from '../model/UserModel.js';
+import AppError from '../middleware/appError.js';
 
 export const authController = {
   signToken: (id) => {
-    jwt.sign({ id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
   },
@@ -37,8 +36,11 @@ export const authController = {
   signup: async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      const role = (req.body.role = req.body.role?.charAt(0).toUpperCase() + req.body.role?.slice(1).toLowerCase());
-      const newUser = await User.create({ username, password, role });
+      const role = req.body.role?.toLowerCase();
+      const formattedRole = role === 'admin' ? 'Admin' : 'Mage';
+
+      const newUser = await UserModel.create({ username, password, role: formattedRole });
+
       authController.createSendToken(newUser, 201, res);
     } catch (err) {
       next(err);
@@ -51,14 +53,13 @@ export const authController = {
       if (!username || !password) {
         return next(new AppError('Merci de fournir un nom d’utilisateur et un mot de passe.', 400));
       }
-
+      // TODO
       const user = await User.findOne({ username }).select('+password');
 
       if (!user || !(await user.correctPassword(password, user.password))) {
         return next(new AppError('Nom d’utilisateur ou mot de passe incorrect.', 401));
       }
-
-      console.log(authController.createSendToken(user, 200, res));
+      authController.createSendToken(user, 200, res);
     } catch (err) {
       next(err);
     }
@@ -88,16 +89,12 @@ export const authController = {
       next(err);
     }
   },
-  restrictTo: (...roles) => {
-    return (req, res, next) => {
-      try {
-        if (!roles.includes(req.user.role)) {
-          return next(new AppError("Vous n'avez pas la permission d'accéder à cette ressource", 403));
-        }
-        next();
-      } catch (err) {
-        next(err);
-      }
+  authorizeAdminOrOwner(getOwnerId) {
+    return async (req, res, next) => {
+      if (req.user.role === 'admin') return next();
+      const ownerId = await getOwnerId(req);
+      if (String(req.user.id) === String(ownerId)) return next();
+      return res.status(403).json({ message: 'Forbidden' });
     };
   },
 };

@@ -1,38 +1,35 @@
 import mongoose from 'mongoose';
-import Effect from './EffectModel.js';
+import EffectModel from './EffectModel.js';
+import logger from '../utils/logger.js';
 
-class Effects {
+class Effect {
   id;
   description;
   school;
-  types;
+  alignment;
   constructor(effectObj) {
     this.id = effectObj.id || effectObj._id || null;
     this.description = effectObj.description || '';
     this.school = effectObj.school || '';
-    this.types = Array.isArray(effectObj.types) ? effectObj.types : [];
-    constructor(effectObj);
-    this.id = effectObj.id || effectObj._id || null;
-    this.description = effectObj.description || '';
-    this.school = effectObj.school || '';
-    this.types = Array.isArray(effectObj.types) ? effectObj.types : [];
-
-    switch (this.types[0]) {
-      case 'Good':
-        console.log('Ce sor.');
+    this.alignment = Array.isArray(effectObj.alignment) ? effectObj.alignment : [];
+    const Type1 = this.alignment?.[0]?.toLowerCase();
+    switch (Type1) {
+      case 'good':
+        logger.info('This spell is full of benefits');
         break;
-      case 'Bad':
-        console.log('Ce sort est maléfique.');
+      case 'bad':
+        logger.warn('This spell is dangerous.');
         break;
-      case 'Chaotic':
-        throw message('');
-        break;
+      case 'chaotic':
+        logger.error('chaotic spell!');
+        throw new Error('chaotic spell.');
       default:
-        '';
-        console.log('Type de sort inconnu.');
+        logger.info('Spell not defined');
+        break;
     }
   }
 }
 
-const Effect = mongoose.model('Effect', effectmodel);
+const Effect = mongoose.model('Effect', EffectModel);
+
 export default Effect;

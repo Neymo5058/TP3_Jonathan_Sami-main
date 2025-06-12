@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
-import validator from 'validator';
-import Spell from './Spell.js';
-import { type } from 'os';
+import EffectSchema from './EffectModel.js';
 
 const SpellSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -19,9 +17,15 @@ const SpellSchema = new mongoose.Schema({
       'University of Secrets',
     ],
   },
-  effects: { type: String, default: [] },
+  effects: {
+    type: [EffectSchema],
+    default: [],
+  },
+  power: {
+    type: Number,
+    default: () => Math.floor(Math.random() * 20) + 5,
+  },
 });
 
-const SpellModel = mongoose.model('Spell', SpellModel);
-
+const SpellModel = mongoose.model('Spell', SpellSchema);
 export default SpellModel;

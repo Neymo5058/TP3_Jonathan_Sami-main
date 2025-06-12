@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: { type: String, required: true, min: [6], max: [12] },
-  role: { type: String, required: true, enum: ['Admin', 'Mage'] },
+  password: { type: String, required: true, minlength: 4, maxlength: 12, select: false },
+  role: { type: String, required: true, enum: ['admin', 'mage'], default: 'mage' },
 });
 
 userSchema.pre('save', async function (next) {

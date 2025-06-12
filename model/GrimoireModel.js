@@ -1,51 +1,17 @@
 import mongoose from 'mongoose';
-import validator from 'validator';
-import Grimoire from './Grimoire.js';
-const GrimoireSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  schools: {
-    type: [String],
-    enum: [
-      'Charms',
-      'Transfiguration',
-      'Defense Against the Dark Arts',
-      'Potions',
-      'Herbology',
-      'Divination',
-      'Astronomy',
-      'Arithmancy',
-      'Ancient Runes',
-      'Care of Magical Creatures',
-      'Alchemy',
-      'Dark Arts',
-    ],
-    default: [],
-  },
-  spells: {
-    type: [String],
-    enum: [
-      'Wingardium Leviosa',
-      'Transfiguro',
-      'Expelliarmus',
-      'Felix Felicis',
-      'Herbivicus',
-      'The Grim Reveal',
-      'Starflare',
-      'Numeris Confundis',
-      'Runica Unlocka',
-      'Beastcall',
-      'Goldtooth Brew',
-      'Avada Kedavra',
-    ],
-    default: [],
-  },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Magician',
-    default: null,
-  },
-});
+import SpellModel from './SpellModel.js';
 
-const GrimoireModel = mongoose.models.Grimoire || mongoose.model('Grimoire', GrimoireSchema);
-
+const GrimoireSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    schools: { type: [String], required: true },
+    spells: {
+      type: [SpellModel.schema],
+      default: [],
+    },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Magician' },
+  },
+  { timestamps: true }
+);
+const GrimoireModel = mongoose.model('Grimoire', GrimoireSchema);
 export default GrimoireModel;

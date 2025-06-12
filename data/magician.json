@@ -1,99 +1,20 @@
-{
-  "magicians": [
-    {
-      "name": "Harry Potter",
-      "appearance": {
-        "hair": { "style": "messy", "color": "black" },
-        "beard": { "style": "none", "color": "none" },
-        "clothes": { "robe": "Gryffindor robe", "hat": "none" },
-        "wand": { "wood": "holly" }
-      },
-      "stats": {
-        "strength": 7,
-        "agility": 8,
-        "endurance": 9,
-        "Spell_Power": 9
-      },
-      "level": 5,
-      "schools": ["Defense Against the Dark Arts", "Charms"],
-      "alignment": "Good",
-      "spellbooks": ["Grimoire of Courage"]
+[
+  {
+    "name": "Alatar",
+    "appearance": {
+      "hair": { "style": "braided", "color": "grey" },
+      "beard": { "style": "long", "color": "grey" },
+      "clothes": { "robe": "emerald", "hat": "wizard" },
+      "wand": { "wood": "yew" }
     },
-    {
-      "id": "2",
-      "name": "Hermione Granger",
-      "appearance": {
-        "hair": { "style": "curly", "color": "brown" },
-        "beard": { "style": "none", "color": "none" },
-        "clothes": { "robe": "Gryffindor robe", "hat": "pointed" },
-        "wand": { "wood": "vine" }
-      },
-      "stats": {
-        "strength": 6,
-        "agility": 7,
-        "endurance": 8,
-        "Spell_Power": 10
-      },
-      "level": 6,
-      "schools": ["Charms", "Transfiguration"],
-      "alignment": "Good",
-      "spellbooks": ["Grimoire of Wisdom"]
+    "stats": {
+      "strength": 6,
+      "agility": 7,
+      "endurance": 5,
+      "spellPower": 10
     },
-    {
-      "name": "Draco Malfoy",
-      "appearance": {
-        "hair": { "style": "slicked", "color": "blond" },
-        "beard": { "style": "none", "color": "none" },
-        "clothes": { "robe": "Slytherin robe", "hat": "none" },
-        "wand": { "wood": "hawthorn" }
-      },
-      "stats": {
-        "strength": 6,
-        "agility": 7,
-        "endurance": 7,
-        "Spell_Power": 8
-      },
-      "level": 4,
-      "schools": ["Dark Arts", "Potions"],
-      "alignment": "Neutral",
-      "spellbooks": ["Grimoire of Shadows"]
-    }
-  ],
-  "grimoires": [
-    {
-      "name": "Grimoire of Courage",
-      "schools": ["Defense Against the Dark Arts", "Charms"],
-      "spells": ["Expelliarmus", "Lumos"],
-      "owner": "1"
-    },
-    {
-      "name": "Grimoire of Wisdom",
-      "schools": ["Charms", "Transfiguration"],
-      "spells": ["Alohomora", "Wingardium Leviosa"],
-      "owner": "2"
-    },
-    {
-      "name": "Grimoire of Shadows",
-      "schools": ["Dark Arts"],
-      "spells": ["Serpensortia", "Petrificus Totalus"],
-      "owner": "3"
-    }
-  ],
-  "spells": [
-    {
-      "name": "Expelliarmus",
-      "effect": "Disarms the opponent",
-      "school": "Defense Against the Dark Arts"
-    },
-    {
-      "name": "Wingardium Leviosa",
-      "effect": "Makes objects levitate",
-      "school": "Charms"
-    },
-    {
-      "name": "Petrificus Totalus",
-      "effect": "Body-Binding Curse",
-      "school": "Dark Arts"
-    }
-  ]
-}
+    "level": 3,
+    "schools": ["University of Shadows"],
+    "alignment": ["chaotic", "good"]
+  }
+]

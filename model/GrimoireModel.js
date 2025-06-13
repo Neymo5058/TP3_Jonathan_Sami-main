@@ -1,15 +1,24 @@
 import mongoose from 'mongoose';
 import SpellModel from './SpellModel.js';
 
-const GrimoireSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    schools: { type: [String], required: true },
-    spells: {
-      type: [SpellModel.schema],
-      default: [],
-    },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Magician' },
+const GrimoireSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+
+  schools: {
+    type: [String],
+    default: [],
+  },
+
+  spells: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Spell', 
+    default: [],
+  }],
+
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Magician',
+    default: null,
   },
   { timestamps: true }
 );

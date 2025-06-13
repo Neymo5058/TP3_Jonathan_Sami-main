@@ -1,20 +1,25 @@
-import mongoose from 'mongoose';
-
 class Spell {
-  id;
-  name;
-  level;
-  school;
-  effects;
-  power;
+  constructor(spellObj) {
+    this.id = spellObj.id || spellObj._id || null;
+    this.name = spellObj.name;
+    this.level = spellObj.level;
+    this.school = spellObj.school;
+    this.effects = spellObj.effects || [];
+  }
 
-  constructor(SpellObj = {}) {
-    this.id = SpellObj.id || SpellObj._id || null;
-    this.name = SpellObj.name || 'Unknown spell';
-    this.level = SpellObj.level || 1;
-    this.school = SpellObj.school || 'Unknown school';
-    this.effects = SpellObj.effects || [];
-    this.power = SpellObj.power ?? Math.floor(Math.random() * 20) + 5;
+  toString() {
+    return `${this.name}`;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      level: this.level,
+      school: this.school,
+      effects: this.effects,
+    };
   }
 }
+
 export default Spell;

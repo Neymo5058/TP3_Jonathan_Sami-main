@@ -1,119 +1,41 @@
-import MagicianModel from '../model/MagicianModel.js';
-import Magician from '../model/Magician.js';
 import GrimoireModel from '../model/GrimoireModel.js';
-import AppError from '../middleware/appError.js';
+import MagicianModel from '../model/MagicianModel.js';
+import SortModel from '../model/SpellModel.js';
 import logger from '../middleware/logger.js';
 
 const GrimoireController = {
-  addSpell: async (req, res, next) => {
-    try {
-      const { magicianId } = req.params;
-      const { name, level, school, effects, power, grimoireTitle } = req.body;
+  async create(req, res) {
+    const { name, schools, spells, owner } = req.body;
+    const magician = await MagicianModel.findById(owner);
+    if (!magician) return res.status(404).json({ message: 'Magician not found' });
 
-      const magicianData = await MagicianModel.findById(magicianId);
-
-      if (!magicianData) {
-        return next(new AppError(res.__('MAGICIAN_NOT_FOUND'), 404));
-      }
-
-      const newMagician = new Magician(magicianData);
-
-      const newSpell = newMagician.createSpellInGrimoire(
-        { name, level, school, effects, power },
-        grimoireTitle || 'Default Grimoire'
-      );
-
-      magicianData.spellbooks = newMagician.spellbooks;
-      magicianData.spells = newMagician.spells;
-      await magicianData.save();
-
-      res.status(201).json({
-        status: 'success',
-        message: res.__('SPELL_CREATED'),
-        spell: newSpell,
-      });
-    } catch (err) {
-      next(err);
-    }
+    const validSchools = schools.filter((s) => magician.schools.includes(s));
+    const grimoire = await GrimoireModel.create({ name, schools: validSchools, spells, owner });
+    logger.info(`Grimoire created: ${grimoire.name}`);
+    res.status(201).json(grimoire);
   },
-  createGrimoire: async (req, res, next) => {
-    try {
-      const { magicianId } = req.params;
-      const { title, schools, level } = req.body;
 
-      const magicianFound = await MagicianModel.findById(magicianId);
-      if (!magicianFound) {
-        return next(new AppError('Magician not found', 404));
-      }
+  async addSpell(req, res) {
+    const { grimoireId, spellId } = req.body;
+    const grimoire = await GrimoireModel.findById(grimoireId);
+    const spell = await SortModel.findById(spellId);
+    if (!grimoire || !spell) return res.status(404).json({ message: 'Not found' });
 
-      const magician = new Magician(magicianFound);
-      const grimoireData = Magician.createGrimoire({
-        title: title ?? null,
-        owner: magician.id,
-        schools: schools ?? magician.schools,
-        level: level ?? magician.level,
-      });
-
-      const createdGrimoire = await GrimoireModel.create(grimoireData);
-
-      res.status(201).json({
-        status: 'success',
-        message: res.__('GRIMOIRE_CREATED'),
-        spell: newSpell,
-      });
-    } catch (err) {
-      next(err);
-    }
+    if (!grimoire.schools.includes(spell.school)) grimoire.schools.push(spell.school);
+    grimoire.spells.push(spellId);
+    await grimoire.save();
+    logger.info(`Spell ${spell.name} added to grimoire ${grimoire.name}`);
+    res.status(200).json(grimoire);
   },
-  getAllGrimoires: async (req, res, next) => {
+  async getAll(req, res) {
     try {
       const grimoires = await GrimoireModel.find();
-
-      res.status(200).json({
-        status: 'success',
-        count: grimoires.length,
-        data: grimoires,
-      });
+      res.status(200).json(grimoires);
     } catch (err) {
-      next(err);
-    }
-  },
-
-  acquireGrimoire: async (req, res, next) => {
-    try {
-      const { magicianId } = req.params;
-      const { grimoireId } = req.body;
-
-      const magicianData = await MagicianModel.findById(magicianId);
-
-      if (!magicianData) {
-        return next(new AppError(res.__('MAGICIAN_NOT_FOUND'), 404));
-      }
-      const grimoire = await GrimoireModel.findById(grimoireId);
-
-      if (!grimoire) {
-        return next(new AppError(res.__('GRIMOIRE_NOT_FOUND'), 404));
-      }
-
-      const magician = new Magician(magicianData);
-      magician.acquireGrimoire(grimoire);
-
-      magicianData.spellbooks.push({
-        title: grimoire.name ?? 'Untitled Grimoire',
-        spells: grimoire.spells ?? [],
-        level: grimoire.level ?? 1,
-      });
-
-      await magicianData.save();
-
-      res.status(200).json({
-        status: 'success',
-        message: res.__('GRIMOIRE_ACQUIRED'),
-        magicianData,
-      });
-    } catch (err) {
-      next(err);
+      logger.error('Get all grimoires error: ' + err.message);
+      res.status(500).json({ message: req.__('messages.serverError') });
     }
   },
 };
+
 export default GrimoireController;

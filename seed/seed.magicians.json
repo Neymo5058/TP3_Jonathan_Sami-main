@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "d10ff42536098cec6587bb7d",
+    "name": "Merlin",
+    "appearance": {
+      "hair": {
+        "style": "long",
+        "color": "white"
+      },
+      "beard": {
+        "style": "full",
+        "color": "white"
+      },
+      "clothes": {
+        "robe": "blue",
+        "hat": "pointed"
+      },
+      "wand": {
+        "wood": "oak"
+      }
+    },
+    "stats": {
+      "strength": 5,
+      "agility": 7,
+      "endurance": 6,
+      "Spell_Power": 10
+    },
+    "level": 3,
+    "schools": [
+      "Charms",
+      "Herbology"
+    ],
+    "alignment": "Chaotic good",
+    "spellbooks": [
+      {
+        "spells": [
+          "2ea0617dc70da6af165ab7ff",
+          "e8325b78596b4e88d545bf30"
+        ]
+      }
+    ],
+    "owner": "56c31e6c75127024d25a3c97"
+  }
+]

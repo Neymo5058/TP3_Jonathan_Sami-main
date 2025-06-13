@@ -1,9 +1,3 @@
-import mongoose from 'mongoose';
-import AppError from '../middleware/appError.js';
-import logger from '../middleware/logger.js';
-import MagicianModel from '../model/MagicianModel.js';
-import SpellModel from './SpellModel.js';
-
 class Magician {
   id;
   name;
@@ -13,7 +7,6 @@ class Magician {
   schools;
   alignment;
   spellbooks;
-  spells;
 
   constructor(magicianObj) {
     this.id = magicianObj.id || magicianObj._id || null;
@@ -192,6 +185,23 @@ class Magician {
     const spellGrimoires = await SpellModel.find({
       _id: { $in: grimoire.spells },
     });
+  }
+
+  toString() {
+    return `${this.name}`;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      level: this.level,
+      appearance: this.appearance,
+      stats: this.stats,
+      schools: this.schools,
+      alignment: this.alignment,
+      spellbooks: this.spellbooks,
+    };
   }
 }
 

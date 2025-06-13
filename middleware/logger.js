@@ -1,14 +1,12 @@
-import { createLogger, transports } from 'winston';
+import winston from 'winston';
 
-const logger = createLogger({
-  transports: [new transports.Console()],
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.simple()
+  ),
+  transports: [new winston.transports.Console()]
 });
 
 export default logger;
-
-//
-// import logger from '../utils/logger.js';
-
-// logger.info('Action réussie');
-// logger.warn('Attention, quelque chose semble étrange');
-// logger.error('Une erreur est survenue');

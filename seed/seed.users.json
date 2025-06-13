@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "601a07b88e2823d6a8cd9084",
+    "username": "admin",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "_id": "56c31e6c75127024d25a3c97",
+    "username": "merlin",
+    "password": "magicpass",
+    "role": "mage"
+  }
+]

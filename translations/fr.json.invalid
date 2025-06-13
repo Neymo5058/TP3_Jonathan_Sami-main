@@ -1,0 +1,23 @@
+{
+  "messages": {
+    "unauthorized": "Accès refusé. Aucun jeton fourni.",
+    "invalidToken": "Jeton invalide.",
+    "forbidden": "Interdit",
+    "userExists": "L'utilisateur existe déjà",
+    "invalidCredentials": "Identifiants invalides",
+    "serverError": "Erreur du serveur",
+    "registered": "Utilisateur enregistré avec succès"
+  },
+  "schools": {
+    "illusion": "Illusion",
+    "divination": "Divination"
+  },
+  "alignment": {
+    "chaoticGood": "Chaotique Bon",
+<<<<<<< HEAD
+    "lawfulEvil": "Légal Mauvais"
+=======
+    "lawfulEvil": "Loyal Mauvais"
+>>>>>>> Jonathan-Branch
+  }
+}

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import SpellModel from './SpellModel.js';
 
 const GrimoireSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },

@@ -12,7 +12,7 @@ import grimoiresRouter from './router/grimoiresRouter.js';
 import effectRouter from './router/effectRouter.js';
 
 import UserModel from './model/UserModel.js';
-import MagicianModel from './model/MagicianModel.js';
+import MagicianModel from './model/magicianModel.js';
 import GrimoireModel from './model/GrimoireModel.js';
 import SortModel from './model/SpellModel.js';
 import EffectModel from './model/EffectModel.js';

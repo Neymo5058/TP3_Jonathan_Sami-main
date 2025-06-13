@@ -1,7 +1,7 @@
 [
   {
     "_id": "bd4d9106feb04459727ccad4",
-    "name": "Book of Merlin",
+    "title": "Book of Merlin",
     "schools": [
       "Charms",
       "Herbology"
@@ -12,4 +12,5 @@
     ],
     "owner": "d10ff42536098cec6587bb7d"
   }
+  
 ]

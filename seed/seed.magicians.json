@@ -23,22 +23,29 @@
       "strength": 5,
       "agility": 7,
       "endurance": 6,
-      "Spell_Power": 10
+      "spellPower": 10
     },
     "level": 3,
     "schools": [
       "Charms",
       "Herbology"
     ],
-    "alignment": "Chaotic good",
+    "alignment": [
+      "chaotic good"
+    ],
     "spellbooks": [
       {
+        "title": "Beginner's Grimoire",
         "spells": [
-          "2ea0617dc70da6af165ab7ff",
-          "e8325b78596b4e88d545bf30"
+          "2ea0617dc70da6af165ab7ff"
+          
         ]
+      },
+      {
+        "title": "Advanced Techniques",
+        "spells": []
       }
     ],
-    "owner": "56c31e6c75127024d25a3c97"
+    "createdBy": "56c31e6c75127024d25a3c97"
   }
 ]

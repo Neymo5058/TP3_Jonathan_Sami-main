@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const SpellbookSchema = new mongoose.Schema({
   title: { type: String, required: true },
   level: { type: Number, default: 1 },
@@ -49,6 +50,11 @@ const MagicianSchema = new mongoose.Schema({
   spellbooks: {
     type: [SpellbookSchema],
     default: [],
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
 });
 

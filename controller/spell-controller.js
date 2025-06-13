@@ -1,5 +1,5 @@
 import SortModel from '../model/SpellModel.js';
-import MagicianModel from '../model/MagicianModel.js';
+import MagicianModel from '../model/magicianModel.js';
 import EffectModel from '../model/EffectModel.js';
 import logger from '../middleware/logger.js';
 import GrimoireModel from '../model/GrimoireModel.js';
@@ -18,7 +18,23 @@ const SpellController = {
     logger.info(`Spell created: ${spell.name}`);
     res.status(201).json(spell);
   },
+  async addEffectToSpell(req, res) {
+    const { spellId, effectId } = req.body;
 
+    const spell = await SortModel.findById(spellId);
+    const effect = await EffectModel.findById(effectId);
+
+    if (!spell || !effect) {
+      return res.status(404).json({ message: 'Spell or effect not found' });
+    }
+
+    if (!spell.effects.includes(effectId)) {
+      spell.effects.push(effectId);
+      await spell.save();
+    }
+
+    res.status(200).json({ message: 'Effect added to spell', spell });
+  },
   async castSpell(req, res) {
     const { magicianId, spellId } = req.body;
 
@@ -29,11 +45,8 @@ const SpellController = {
         return res.status(404).json({ message: 'Magician or spell not found' });
       }
 
-      // Load grimoires owned by the magician
-      const grimoires = await GrimoireModel.find({ _id: { $in: magician.spellbooks } });
-
-      // Check if any grimoire includes the spell
-      const knowsSpell = grimoires.some((grimoire) => grimoire.spells.some((id) => id.toString() === spellId));
+      // ✅ Check embedded spellbooks for spell ownership
+      const knowsSpell = magician.spellbooks.some((book) => book.spells.some((id) => id.toString() === spellId));
 
       if (!knowsSpell) {
         return res.status(403).json({ message: 'Magician does not possess this spell' });

@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 import UserModel from '../model/UserModel.js';
@@ -37,7 +37,7 @@ export const authController = {
     try {
       const { username, password } = req.body;
       const role = req.body.role?.toLowerCase();
-      const formattedRole = role === 'admin' ? 'Admin' : 'Mage';
+      const formattedRole = role === 'admin' ? 'admin' : 'mage';
 
       const newUser = await UserModel.create({ username, password, role: formattedRole });
 
@@ -46,6 +46,7 @@ export const authController = {
       next(err);
     }
   },
+
   login: async (req, res, next) => {
     try {
       const { username, password } = req.body;
@@ -53,12 +54,13 @@ export const authController = {
       if (!username || !password) {
         return next(new AppError('Merci de fournir un nom d’utilisateur et un mot de passe.', 400));
       }
-      // TODO
-      const user = await User.findOne({ username }).select('+password');
 
-      if (!user || !(await user.correctPassword(password, user.password))) {
+      const user = await UserModel.findOne({ username }).select('+password');
+
+      if (!user || user.password !== password) {
         return next(new AppError('Nom d’utilisateur ou mot de passe incorrect.', 401));
       }
+
       authController.createSendToken(user, 200, res);
     } catch (err) {
       next(err);
@@ -78,9 +80,9 @@ export const authController = {
 
       const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-      const currentUser = await User.findById(decoded.id);
+      const currentUser = await UserModel.findById(decoded.id);
       if (!currentUser) {
-        return next(new AppError('User does not exsist.', 404));
+        return next(new AppError('User does not exist.', 404));
       }
 
       req.user = currentUser;
@@ -89,6 +91,7 @@ export const authController = {
       next(err);
     }
   },
+
   authorizeAdminOrOwner(getOwnerId) {
     return async (req, res, next) => {
       if (req.user.role === 'admin') return next();
